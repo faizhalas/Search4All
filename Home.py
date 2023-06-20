@@ -8,11 +8,16 @@ st.set_page_config(page_title="Pencarian Terpadu", page_icon="https://digilib.po
                 layout="wide", initial_sidebar_state="expanded")
 
 # Connect to the Google Sheet
-sheet_id = st.secrets.sheet_id
-sheet_name = st.secrets.sheet_name
-url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-df = pd.read_csv(url, dtype=str, header=0)
-df = df.sort_index(ascending=False).fillna('NaN')
+st.cache_resource(ttl=3600*3)
+def connect_gsheet():
+  sheet_id = st.secrets.sheet_id
+  sheet_name = st.secrets.sheet_name
+  url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+  df = pd.read_csv(url, dtype=str, header=0)
+  df = df.sort_index(ascending=False).fillna('NaN')
+  return df
+
+df = connect_gsheet()
 
 # image dictionary
 image_dict = {
