@@ -2,3 +2,4 @@ streamlit
 pandas
 numpy
 pdfplumber
+st_pages>=0.4.0
