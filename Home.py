@@ -3,9 +3,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import re
+from st_pages import hide_pages
 
-st.set_page_config(page_title="Pencarian Terpadu", page_icon="https://digilib.polteknuklir.ac.id/perpus/images/default/logo.png", 
-                layout="wide", initial_sidebar_state="expanded")
+#===config===
+st.set_page_config(
+     page_title="Pencarian Terpadu",
+     page_icon="https://digilib.polteknuklir.ac.id/perpus/images/default/logo.png",
+     layout="wide"
+)
 
 # Connect to the Google Sheet
 st.cache_resource(ttl=3600*3)
