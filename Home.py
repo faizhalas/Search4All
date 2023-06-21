@@ -43,6 +43,9 @@ image_dict = {
 #Title
 st.title('Search4All: Recorded materials')
 
+#Hide menu
+hide_pages("backoffice")
+
 # Intro text
 st.caption(f"Discover and learn among the more than **{df.shape[0]}** sources available from Search4All.")
 c1, c2, c3 = st.columns([5,2,3])
