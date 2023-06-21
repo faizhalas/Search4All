@@ -40,11 +40,11 @@ image_dict = {
   "Tugas Akhir": "https://github.com/faizhalas/Search4All/blob/main/images/ta.png?raw=true"
 }
 
-#Title
-st.title('Search4All: Recorded materials')
-
 #Hide menu
 hide_pages("backoffice")
+
+#Title
+st.title('Search4All: Recorded materials')
 
 # Intro text
 st.caption(f"Discover and learn among the more than **{df.shape[0]}** sources available from Search4All.")
