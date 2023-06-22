@@ -18,15 +18,28 @@ def connect_gsheet():
   sheet_id = st.secrets.sheet_id
   sheet_name = st.secrets.sheet_info
   url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-  df = pd.read_csv(url, dtype=str, header=0)
-  df = df.sort_index(ascending=False).fillna('NaN') 
-  return df
+  ji = pd.read_csv(url, dtype=str, header=0)
+  ji = df.sort_index(ascending=True).fillna('NaN') 
+  return ji
 
-df = connect_gsheet()
+ji = connect_gsheet()
 
 #Title
 st.title('Search4All: Information')
 
 # Intro text
 st.caption("Journals that are available through Search4All")
-st.write(df)
+
+# CSS to inject contained in a string
+hide_dataframe_row_index = """
+            <style>
+            .row_heading.level0 {display:none}
+            .blank {display:none}
+            </style>
+            """
+
+# Inject CSS with Markdown
+st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
+
+# Display an interactive table
+st.dataframe(ji, use_container_width=True)
