@@ -19,7 +19,7 @@ def connect_gsheet():
   sheet_name = st.secrets.sheet_info
   url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
   ji = pd.read_csv(url, dtype=str, header=0)
-  ji = df.sort_index(ascending=True).fillna('NaN') 
+  ji = ji.sort_index(ascending=True) 
   return ji
 
 ji = connect_gsheet()
