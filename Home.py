@@ -20,6 +20,7 @@ def connect_gsheet():
   url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
   df = pd.read_csv(url, dtype=str, header=0)
   df = df.sort_index(ascending=False).fillna('NaN')
+  df["full-text"] = df[["abstract", "introduction", "literature review", "methods", "discussion", "conclusion"]].agg(" - ".join, axis=1)
   return df
 
 df = connect_gsheet()
@@ -32,7 +33,6 @@ image_dict = {
   "Direktori, annual, yearbook": "https://github.com/faizhalas/Search4All/blob/main/images/diranuyear.png?raw=true",
   "Ensiklopedia": "https://github.com/faizhalas/Search4All/blob/main/images/ensiklopedia.png?raw=true",
   "Handbook & manual": "https://github.com/faizhalas/Search4All/blob/main/images/hanmanu.png?raw=true",
-  "Jurnal": "https://github.com/faizhalas/Search4All/blob/main/images/jurnal.png?raw=true",
   "Kamus": "https://github.com/faizhalas/Search4All/blob/main/images/kamus.png?raw=true",
   "Kerja Praktik": "https://github.com/faizhalas/Search4All/blob/main/images/kp.png?raw=true",
   "Prosiding": "https://github.com/faizhalas/Search4All/blob/main/images/pros.png?raw=true",
@@ -41,7 +41,7 @@ image_dict = {
 }
 
 #Title
-st.title('Search4All: Recorded materials')
+st.title('Search4All: Collections')
 
 # Intro text
 st.caption(f"Discover and learn among the more than **{df.shape[0]}** sources available from Search4All.")
@@ -53,13 +53,29 @@ text_search = c1.text_input("Search by author, title, or full-text. Separate con
 # Get keywords from search bar
 keyword_list = [keyword.strip() for keyword in text_search.split(";")]
 
+# option to choose
+list_opt = ["annotation", "author", "title", "abstract", "introduction", "literature review", "methods", "discussion", "conclusion", "full-text"]
+
 # Add options
-format_options = ["All", "Buku Ketenaganukliran", "Buku Non-ketenaganukliran", "Buku Pedoman", "Direktori, annual, yearbook", "Ensiklopedia", "Handbook & manual", "Jurnal", "Kamus", "Kerja Praktik", "Prosiding", "Terbitan Internal", "Tugas Akhir"]
+format_options = ["All", "Buku Ketenaganukliran", "Buku Non-ketenaganukliran", "Buku Pedoman", "Direktori, annual, yearbook", "Ensiklopedia", "Handbook & manual", "Kamus", "Kerja Praktik", "Prosiding", "Terbitan Internal", "Tugas Akhir"]
 type_for = c2.selectbox("Type", format_options)
-search_opt = c3.multiselect(
-        "Search fields",
-        ["author", "title", "full-text"],
-        ["author", "title"])
+if type_for == format_options[0]:
+    search_opt = c3.multiselect(
+             "Search fields",
+             list_opt,
+             ["author", "title"])
+elif type_for == "Tugas Akhir":
+     search_opt = c3.multiselect(
+             "Search fields",
+             list_opt[1:],
+             ["author", "title"])
+
+else:
+     search_opt = c3.multiselect(
+             "Search fields",
+             list_opt[0:3],
+             ["author", "title"])
+
 
 # filter
 if keyword_list is not None:        
@@ -69,7 +85,7 @@ if keyword_list is not None:
         for col in search_opt:
             conditions = [df[col].str.contains(pattern, regex=True, flags=re.IGNORECASE) for pattern in patterns]
             column_result = df[np.logical_and.reduce(conditions)]
-            key_df = pd.concat([key_df, column_result])
+            key_df = pd.concat([key_df, column_result]).drop_duplicates()
 
         if type_for != format_options[0]:
             key_df = key_df[key_df['gmd_id'].str.contains(type_for)]
@@ -94,4 +110,4 @@ if text_search:
             markdown = f'<a href="{link}" target="_blank"><img src="{image_link}" alt="Click me" width="100%" /></a>'
             st.markdown(markdown, unsafe_allow_html=True)
             st.markdown(f"**{row['author'].strip()}**")
-            st.markdown(f"*{row['title'].strip()}*")
+            st.markdown(f"**Title:** *{row['title'].strip()}*")
