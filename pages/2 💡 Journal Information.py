@@ -30,16 +30,5 @@ st.title('Search4All: Information')
 # Intro text
 st.caption("Journals that are available through Search4All")
 
-# CSS to inject contained in a string
-hide_dataframe_row_index = """
-            <style>
-            .row_heading.level0 {display:none}
-            .blank {display:none}
-            </style>
-            """
-
-# Inject CSS with Markdown
-st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
-
 # Display an interactive table
 st.dataframe(ji, use_container_width=True)
