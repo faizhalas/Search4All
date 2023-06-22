@@ -8,7 +8,7 @@ from st_pages import hide_pages
 #===config===
 st.set_page_config(
      page_title="Pencarian Terpadu",
-     page_icon="https://digilib.polteknuklir.ac.id/perpus/images/default/logo.png",
+     page_icon="https://github.com/faizhalas/Search4All/blob/main/images/logo.png?raw=true",
      layout="wide"
 )
 
