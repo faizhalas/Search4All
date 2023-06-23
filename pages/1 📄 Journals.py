@@ -20,7 +20,7 @@ def connect_gsheet():
   url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
   df = pd.read_csv(url, dtype=str, header=0)
   df = df.sort_index(ascending=False).fillna('NaN')
-  df["full-text"] = df[["abstract", "introduction", "literature review", "methods", "discussion", "conclusion"]].agg(" - ".join, axis=1)
+  df["full-text"] = df[["abstract", "introduction", "methods", "discussion", "conclusion"]].agg(" - ".join, axis=1)
   return df
 
 df = connect_gsheet()
@@ -50,7 +50,7 @@ text_search = c1.text_input("Search by author, title, or full-text. Separate con
 keyword_list_j = [keyword.strip() for keyword in text_search.split(";")]
 
 # option to choose
-part_opt = ["author", "title", "abstract", "introduction", "literature review", "methods", "discussion", "conclusion", "full-text"]
+part_opt = ["author", "title", "abstract", "introduction", "methods", "discussion", "conclusion", "full-text"]
 
 # Add options
 s_titles = ["All", "Atom Indonesia", "EKSPLORIUM", "GANENDRA", "Jurnal Pengembangan Energi Nuklir", "Jurnal Sains dan Teknologi Nuklir Indonesia", "Jurnal Teknologi Reaktor Nuklir Tri Dasa Mega", "URANIA"]
