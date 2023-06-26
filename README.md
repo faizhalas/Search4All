@@ -1,10 +1,14 @@
 # Search4All
-Web application for converting PDF to tabular data to aid in [Search4All](https://github.com/faizhalas/Search4All) processes.
+A web application for exploring further into full text or specific sections linked to Google Sheets.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)][share_link]
 [![License](https://img.shields.io/github/license/faizhalas/library-tools?color=blue)](https://github.com/faizhalas/Search4All/blob/main/LICENSE)
 
-### Create your own app
+## Create your own app
+- Prepare your data in Google Sheet
+- Fork Search4All and edit as you want
+- Run your own app on Streamlit Community Cloud
+
 
 ## Component Setup - Connection
 - For security reason, you need to prepare sheet_id, sheet_name, sheet_journal, and sheet_info which are placed on Streamlit:
