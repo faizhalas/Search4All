@@ -71,8 +71,7 @@ part_opt = ["column1", "column2", "column3", "column4", "....."]
 
 # List of journal titles. "All" indicates that the search will be performed on all journal.
 s_titles = ["All", "type1", "type2", "type3", "type4", "....."]
-
-
+```
 
 
 
