@@ -31,4 +31,4 @@ st.title('Search4All: Information')
 st.caption("Journals that are available through Search4All")
 
 # Display an interactive table
-st.dataframe(ji, use_container_width=True)
+st.write(ji, use_container_width=True)
