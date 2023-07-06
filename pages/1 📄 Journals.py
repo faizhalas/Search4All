@@ -40,7 +40,7 @@ image_dict = {
 st.title('Search4All: Journal')
 
 # Intro text
-st.caption(f"Discover and learn among the more than **{df.shape[0]}** sources available from Search4All.")
+st.caption(f"Discover and learn among **{df.shape[0]}** articles available from Search4All.")
 c1, c2, c3 = st.columns([5,2,3])
 
 # The search bar
