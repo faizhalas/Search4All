@@ -77,6 +77,7 @@ if keyword_list_j is not None:
 # creating card(s)
 N_cards_per_row = 5
 if text_search:
+    st.caption(f"We found **{key_df_j.shape[0]}** article(s) available for you.")
     for n_row, row in key_df_j.reset_index().iterrows():
         i = n_row%N_cards_per_row
         if i==0:
